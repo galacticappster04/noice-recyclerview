@@ -1,0 +1,85 @@
+apply plugin: 'com.novoda.bintray-release'
+
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Unit Testing and Instrumentation
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // Everything Android
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+}
+
+publish {
+
+    def _userOrg='neonwarge04'
+    def _groupId = 'com.neonapps.lib.android.noice.rv'
+    def _artifactId = 'noice-recyclerview'
+    def _publishVersion = '0.0.1'
+    def _website = 'https://github.com/neonwarge04/noice-recyclerview'
+
+    userOrg = _userOrg
+    groupId = _groupId
+    artifactId = _artifactId
+    publishVersion = _publishVersion
+    desc = ' '
+    website = _website
+
+    publishing {
+        publications {
+            MyPub(MavenPublication){
+                groupId _groupId
+                artifactId _artifactId
+                artifact _artifactId
+            }
+        }
+    }
+
+    publications = ['MyPub']
+}
+
