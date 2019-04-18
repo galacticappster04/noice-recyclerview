@@ -146,3 +146,6 @@ gradle/
 gradlew
 
 gradlew\.bat
+
+# Bintray credentials
+credentials.properties
