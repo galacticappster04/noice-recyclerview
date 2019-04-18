@@ -55,31 +55,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
 
-publish {
+apply from: 'https://raw.githubusercontent.com/neonwarge04/jcenter-config/1.0.3/install.gradle'
 
-    def _userOrg='neonwarge04'
-    def _groupId = 'com.neonapps.lib.android.noice.rv'
-    def _artifactId = 'noice-recyclerview'
-    def _publishVersion = '0.0.1'
-    def _website = 'https://github.com/neonwarge04/noice-recyclerview'
-
-    userOrg = _userOrg
-    groupId = _groupId
-    artifactId = _artifactId
-    publishVersion = _publishVersion
-    desc = ' '
-    website = _website
-
-    publishing {
-        publications {
-            MyPub(MavenPublication){
-                groupId _groupId
-                artifactId _artifactId
-                artifact _artifactId
-            }
-        }
-    }
-
-    publications = ['MyPub']
-}
+apply from: 'https://raw.githubusercontent.com/neonwarge04/jcenter-config/1.0.3/bintray.gradle'
 
