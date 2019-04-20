@@ -6,9 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
 import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 
-// TODO upload project to Github and deploy on jcenter
-// TODO add evaluate method which calls getViewPrototype() on each item
-// TODO make another parameterless constructor
 // TODO throw exception when parameterless constructor called but evaluate has not been called
 class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
