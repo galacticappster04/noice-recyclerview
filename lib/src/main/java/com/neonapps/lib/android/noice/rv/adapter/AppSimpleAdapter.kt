@@ -10,9 +10,11 @@ import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 // TODO add evaluate method which calls getViewPrototype() on each item
 // TODO make another parameterless constructor
 // TODO throw exception when parameterless constructor called but evaluate has not been called
-class AppSimpleAdapter<V>(private val prototypes : Map<Int, TypedHolder.Prototype>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class Event { Clicked }
+
+    private val prototypes : MutableMap<Int, TypedHolder.Prototype> = mutableMapOf()
 
     interface Listener<V> {
         fun onEventTriggered(item : AppSimpleAdapterItem<V>, position : Int, eventName : String)
@@ -21,6 +23,12 @@ class AppSimpleAdapter<V>(private val prototypes : Map<Int, TypedHolder.Prototyp
     var content : List<AppSimpleAdapterItem<V>> = listOf()
         set(value){
             field = value
+
+            for(item in field){
+                if(!prototypes.containsKey(item.type))
+                    prototypes[item.type] = item.createPrototype()
+            }
+
             notifyDataSetChanged()
         }
 
