@@ -9,12 +9,14 @@ import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 // TODO throw exception when parameterless constructor called but evaluate has not been called
 class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    enum class Event { Clicked }
+    enum class Event { Clicked, ViewBound }
 
     private val prototypes : MutableMap<Int, TypedHolder.Prototype> = mutableMapOf()
 
     interface Listener<V> {
-        fun onEventTriggered(item : AppSimpleAdapterItem<V>, position : Int, eventName : String)
+        fun onClicked(item : AppSimpleAdapterItem<V>, position : Int, eventName : String)
+
+        fun onViewBound(item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName : String)
     }
 
     var content : List<AppSimpleAdapterItem<V>> = listOf()
@@ -54,10 +56,14 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         content[position].bind(this, holder, position)
     }
 
-    fun dispatchOnClickEvent(eventType : Event, item : AppSimpleAdapterItem<V>, position : Int, eventName : String){
+    fun dispatchEvent(eventType : Event, item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName : String){
         when (eventType){
             Event.Clicked -> {
-                listener?.onEventTriggered(item, position, eventName)
+                listener?.onClicked(item, position, eventName)
+            }
+
+            Event.ViewBound -> {
+                listener?.onViewBound(item, viewHolder, position, eventName)
             }
         }
     }
