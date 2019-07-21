@@ -7,5 +7,5 @@ import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 interface ItemBindable<V> {
     fun bind(adapter : AppSimpleAdapter<V>, holder : RecyclerView.ViewHolder, position : Int){}
 
-    fun onBound(holder : RecyclerView.ViewHolder, item : AppSimpleAdapterItem<V>, position : Int)
+    fun onBound(visitor : V, holder : RecyclerView.ViewHolder, item : AppSimpleAdapterItem<V>, position : Int)
 }
