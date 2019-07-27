@@ -19,17 +19,10 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun onViewBound(item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName : String)
     }
 
-    var content : List<AppSimpleAdapterItem<V>> = listOf()
-        set(value){
-            field = value
+    private var _content : MutableList<AppSimpleAdapterItem<V>> = mutableListOf()
 
-            for(item in field){
-                if(!prototypes.containsKey(item.type))
-                    prototypes[item.type] = item.createPrototype()
-            }
-
-            notifyDataSetChanged()
-        }
+    val content : List<AppSimpleAdapterItem<V>>
+        get() = _content
 
     var currentSelected : Int = -1
         set(value){
@@ -66,6 +59,34 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 listener?.onViewBound(item, viewHolder, position, eventName)
             }
         }
+    }
+
+    fun setContent(items : MutableList<AppSimpleAdapterItem<V>>) {
+
+        for(item in items){
+            if(!prototypes.containsKey(item.type))
+                prototypes[item.type] = item.createPrototype()
+        }
+
+        this._content = items
+        notifyDataSetChanged()
+    }
+
+    fun addItem(position: Int = this@AppSimpleAdapter.content.size - 1, item: AppSimpleAdapterItem<V>) {
+        if(!prototypes.containsKey(item.type))
+            prototypes[item.type] = item.createPrototype()
+
+        _content.add(position, item)
+        notifyItemInserted(position)
+    }
+
+    fun removeItem(position : Int) {
+        if(position < 0 || position >= content.size)
+            return
+
+        val removedItem = _content.removeAt(position)
+        prototypes.remove(removedItem.type)
+        notifyItemRemoved(position)
     }
 
     override fun getItemCount(): Int = content.size
