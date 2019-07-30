@@ -6,20 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
 import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 
-// TODO throw exception when parameterless constructor called but evaluate has not been called
 class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class Event { Clicked, ViewBound }
 
     private val prototypes : MutableMap<Int, TypedHolder.Prototype> = mutableMapOf()
 
-    interface Listener<V> {
-        fun onClicked(item : AppSimpleAdapterItem<V>, position : Int, eventName : String)
-
-        fun onViewBound(item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName : String)
-    }
-
     private var _content : MutableList<AppSimpleAdapterItem<V>> = mutableListOf()
+
+    var notifyCurrentSelectedOnChange : Boolean = false
+    var visitor : V? = null
 
     val content : List<AppSimpleAdapterItem<V>>
         get() = _content
@@ -28,11 +24,12 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         set(value){
             previousSelected = field
             field = value
-            notifyItemChanged(currentSelected)
+
+            if(notifyCurrentSelectedOnChange)
+                notifyItemChanged(currentSelected)
+
             notifyItemChanged(previousSelected)
         }
-
-    var listener : Listener<V>? = null
 
     private var previousSelected : Int = -1
 
@@ -52,11 +49,13 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun dispatchEvent(eventType : Event, item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName : String){
         when (eventType){
             Event.Clicked -> {
-                listener?.onClicked(item, position, eventName)
+                if(visitor != null)
+                    item.click(visitor!!, position, eventName)
             }
 
             Event.ViewBound -> {
-                listener?.onViewBound(item, viewHolder, position, eventName)
+                if(visitor != null)
+                    item.onBound(visitor!!, viewHolder, item, position, eventName)
             }
         }
     }
