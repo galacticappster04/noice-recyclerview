@@ -10,7 +10,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     enum class Event { Clicked, ViewBound }
 
-    private val prototypes : MutableMap<Int, TypedHolder.Prototype> = mutableMapOf()
+    private val prototypes : HashMap<Int, TypedHolder.Prototype> = hashMapOf()
 
     private var _content : MutableList<AppSimpleAdapterItem<V>> = mutableListOf()
 
