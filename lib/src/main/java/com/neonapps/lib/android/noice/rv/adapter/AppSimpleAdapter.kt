@@ -91,4 +91,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = content.size
 
     override fun getItemViewType(position: Int): Int = content[position].type
+
+    override fun getItemId(position: Int): Long = content[position].getId(position)
+
 }

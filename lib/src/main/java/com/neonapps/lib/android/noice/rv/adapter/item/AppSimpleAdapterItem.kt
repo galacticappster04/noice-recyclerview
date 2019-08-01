@@ -6,4 +6,6 @@ import com.neonapps.lib.android.noice.rv.adapter.events.PrototypeProvider
 
 interface AppSimpleAdapterItem<T> : ItemClickable<T>, ItemBindable<T>, PrototypeProvider {
     val type : Int
+
+    fun getId(position : Int) : Long
 }
