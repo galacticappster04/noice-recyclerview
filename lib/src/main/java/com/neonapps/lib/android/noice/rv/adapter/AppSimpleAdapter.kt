@@ -81,9 +81,12 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if(position < 0 || position >= content.size)
             return
 
-        val removedItem = _content.removeAt(position)
-        prototypes.remove(removedItem.type)
+        _content.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    fun removeViewPrototype(type : Int) {
+        prototypes.remove(type)
     }
 
     override fun getItemCount(): Int = content.size
