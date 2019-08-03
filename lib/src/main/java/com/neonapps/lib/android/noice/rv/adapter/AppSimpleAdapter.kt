@@ -30,6 +30,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     private var previousSelected : Int = -1
+    private var linearLayoutInflater: LayoutInflater? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -37,7 +38,10 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             throw Error("There is no available viewholder prototype for type= $viewType")
         }
 
-        return prototypes[viewType]?.create(LayoutInflater.from(parent.context), parent, false)!!
+        if(linearLayoutInflater == null)
+            linearLayoutInflater = LayoutInflater.from(parent.context)
+
+        return prototypes[viewType]?.create(linearLayoutInflater!!, parent, false)!!
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
