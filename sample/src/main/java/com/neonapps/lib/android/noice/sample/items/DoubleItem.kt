@@ -27,6 +27,8 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
 
     }
 
+    override fun getId(position: Int): Long = position.toLong()
+
     override fun createPrototype() : TypedHolder.Prototype  = Prototype()
 
     inner class Prototype : TypedHolder.Prototype {
