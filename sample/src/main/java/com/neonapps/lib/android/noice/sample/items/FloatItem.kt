@@ -14,6 +14,7 @@ import com.neonapps.lib.android.noice.sample.vh.FloatViewHolder
 import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 
 class FloatItem(val item : FloatEntity) : AppSimpleAdapterItem<SampleItemVisitor> {
+
     override val type: Int = ID.FLOAT
 
     override fun bind(adapter: AppSimpleAdapter<SampleItemVisitor>, holder: RecyclerView.ViewHolder, position: Int) {
@@ -24,6 +25,8 @@ class FloatItem(val item : FloatEntity) : AppSimpleAdapterItem<SampleItemVisitor
 
     override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
     }
+
+    override fun getId(position: Int): Long = position.toLong()
 
     override fun createPrototype(): TypedHolder.Prototype = Prototype()
 

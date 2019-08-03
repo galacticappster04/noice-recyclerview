@@ -44,6 +44,6 @@ class MainActivity : AppCompatActivity() {
         recyclerview_main.adapter = adapter
         recyclerview_main.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        adapter.content = items
+        adapter.setContent(items)
     }
 }
