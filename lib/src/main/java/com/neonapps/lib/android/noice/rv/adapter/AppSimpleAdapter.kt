@@ -8,8 +8,6 @@ import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 
 class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    enum class Event { Clicked, ViewBound }
-
     private val prototypes : HashMap<Int, TypedHolder.Prototype> = hashMapOf()
 
     private var _content : MutableList<AppSimpleAdapterItem<V>> = mutableListOf()
@@ -46,18 +44,14 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         content[position].bind(this, holder, position)
     }
 
-    fun dispatchEvent(eventType : Event, item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName : String){
-        when (eventType){
-            Event.Clicked -> {
-                if(visitor != null)
-                    item.click(visitor!!, position, eventName)
-            }
+    fun dispatchTouchEvent(item : AppSimpleAdapterItem<V>, position : Int, eventName : String) {
+        if(visitor != null)
+            item.click(visitor!!, position, eventName)
+    }
 
-            Event.ViewBound -> {
-                if(visitor != null)
-                    item.onBound(visitor!!, viewHolder, item, position, eventName)
-            }
-        }
+    fun dispatchBindEvent(item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName: String) {
+        if(visitor != null)
+            item.onBound(visitor!!, viewHolder, item, position, eventName)
     }
 
     fun setContent(items : MutableList<AppSimpleAdapterItem<V>>) {
@@ -93,5 +87,4 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int): Int = content[position].type
 
     override fun getItemId(position: Int): Long = content[position].getId(position)
-
 }
