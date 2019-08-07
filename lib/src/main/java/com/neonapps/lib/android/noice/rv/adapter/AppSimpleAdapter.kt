@@ -12,11 +12,29 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var _content : MutableList<AppSimpleAdapterItem<V>> = mutableListOf()
 
+    var multiSelectionEnabled : Boolean = false
+        set(value){
+            field = value
+            notifyDataSetChanged()
+        }
+
     var notifyCurrentSelectedOnChange : Boolean = false
     var visitor : V? = null
 
     val content : List<AppSimpleAdapterItem<V>>
         get() = _content
+
+    val selectedItems : Map<Int, AppSimpleAdapterItem<V>>
+        get() {
+            val items : MutableMap<Int, AppSimpleAdapterItem<V>> = mutableMapOf()
+
+            content.withIndex().forEach{
+                if(it.value.isSelected)
+                    items.put(it.index, it.value)
+            }
+
+            return items
+        }
 
     var currentSelected : Int = -1
         set(value){
@@ -49,8 +67,9 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun dispatchTouchEvent(item : AppSimpleAdapterItem<V>, position : Int, eventName : String) {
-        if(visitor != null)
+        if(visitor != null) {
             item.click(visitor!!, position, eventName)
+        }
     }
 
     fun dispatchBindEvent(item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName: String) {
