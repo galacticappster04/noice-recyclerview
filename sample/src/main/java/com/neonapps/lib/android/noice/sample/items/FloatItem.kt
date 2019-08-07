@@ -16,6 +16,7 @@ import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 class FloatItem(val item : FloatEntity) : AppSimpleAdapterItem<SampleItemVisitor> {
 
     override val type: Int = ID.FLOAT
+    override var isSelected: Boolean = false
 
     override fun bind(adapter: AppSimpleAdapter<SampleItemVisitor>, holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is FloatViewHolder){

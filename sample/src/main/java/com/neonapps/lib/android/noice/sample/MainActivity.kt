@@ -17,7 +17,7 @@ import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 import kotlinx.android.synthetic.main.activity_main.*
 
 // TODO Create sample for this project
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SampleItemVisitor {
 
     private val adapter : AppSimpleAdapter<SampleItemVisitor> = AppSimpleAdapter()
 
@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         recyclerview_main.adapter = adapter
         recyclerview_main.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        adapter.visitor = this
         adapter.setContent(items)
     }
 }

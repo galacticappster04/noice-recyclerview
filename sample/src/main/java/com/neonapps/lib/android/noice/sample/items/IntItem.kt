@@ -16,6 +16,7 @@ import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 class IntItem(val item : IntEntity) : AppSimpleAdapterItem<SampleItemVisitor> {
 
     override val type: Int = ID.INT
+    override var isSelected: Boolean = false
 
     override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
 
