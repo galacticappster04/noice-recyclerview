@@ -100,12 +100,18 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemInserted(position)
     }
 
-    fun removeItem(position : Int) {
-        if(position < 0 || position >= content.size)
-            return
+    fun removeItem(vararg position : Int) {
 
-        _content.removeAt(position)
-        notifyItemRemoved(position)
+        val selectedPositions = position.filter { it > 0 || it < content.size }
+
+        // _content.removeAt(position)
+        selectedPositions.forEach {
+            _content.removeAt(it)
+        }
+
+        selectedPositions.forEach {
+            notifyItemRemoved(it)
+        }
     }
 
     fun removeViewPrototype(type : Int) {
