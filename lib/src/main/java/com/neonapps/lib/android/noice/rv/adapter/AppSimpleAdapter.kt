@@ -38,6 +38,10 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var currentSelected : Int = -1
         set(value){
+
+            if(previousSelected == field)
+                return
+            
             previousSelected = field
             field = value
 
