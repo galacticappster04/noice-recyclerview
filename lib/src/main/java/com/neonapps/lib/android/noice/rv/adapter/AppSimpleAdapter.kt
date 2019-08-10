@@ -78,7 +78,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun dispatchBindEvent(item : AdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName: String) {
         if(visitor != null)
-            item.onBound(visitor!!, viewHolder, item, position, eventName)
+            item.onBound(visitor!!, viewHolder, position, eventName)
     }
 
     fun setContent(items : MutableList<AdapterItem<V>>) {
