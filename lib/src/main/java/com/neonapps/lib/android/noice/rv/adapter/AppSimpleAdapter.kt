@@ -112,6 +112,10 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         prototypes.remove(type)
     }
 
+    fun removeAllPrototype(type : Int) {
+        prototypes.clear()
+    }
+
     override fun getItemCount(): Int = content.size
 
     override fun getItemViewType(position: Int): Int = content[position].type
