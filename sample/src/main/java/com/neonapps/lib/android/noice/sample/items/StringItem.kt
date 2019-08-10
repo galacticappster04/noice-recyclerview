@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neonapps.lib.android.noice.rv.adapter.AppSimpleAdapter
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
+import com.neonapps.lib.android.noice.rv.adapter.item.AdapterItem
 import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 import com.neonapps.lib.android.noice.sample.R
 import com.neonapps.lib.android.noice.sample.constants.ID
@@ -13,7 +14,7 @@ import com.neonapps.lib.android.noice.sample.entities.StringEntity
 import com.neonapps.lib.android.noice.sample.vh.StringViewHolder
 import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 
-class StringItem(val item : StringEntity) : AppSimpleAdapterItem<SampleItemVisitor> {
+class StringItem(val item : StringEntity) : AppSimpleAdapterItem<SampleItemVisitor>() {
 
     override val type: Int = ID.String
     override var isSelected: Boolean = false

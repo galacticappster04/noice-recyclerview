@@ -4,15 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neonapps.lib.android.noice.rv.adapter.AppSimpleAdapter
-import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
+import com.neonapps.lib.android.noice.rv.adapter.item.AdapterItem
 import com.neonapps.lib.android.noice.sample.entities.DoubleEntity
-import com.neonapps.lib.android.noice.sample.entities.FloatEntity
-import com.neonapps.lib.android.noice.sample.entities.IntEntity
-import com.neonapps.lib.android.noice.sample.entities.StringEntity
 import com.neonapps.lib.android.noice.sample.items.DoubleItem
-import com.neonapps.lib.android.noice.sample.items.FloatItem
-import com.neonapps.lib.android.noice.sample.items.IntItem
-import com.neonapps.lib.android.noice.sample.items.StringItem
 import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,7 +19,7 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val items : MutableList<AppSimpleAdapterItem<SampleItemVisitor>> = mutableListOf()
+        val items : MutableList<AdapterItem<SampleItemVisitor>> = mutableListOf()
         items.add(DoubleItem(DoubleEntity((1.0))))
         items.add(DoubleItem(DoubleEntity((2.0))))
         items.add(DoubleItem(DoubleEntity((3.0))))
@@ -80,6 +74,12 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
         }
 
         adapter.visitor = this
+        adapter.notifyCurrentSelectedOnChange = true
         adapter.setContent(items)
+        adapter.setHasStableIds(true)
+    }
+
+    override fun onBind(position: Int, eventName: String) {
+
     }
 }
