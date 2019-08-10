@@ -39,7 +39,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var currentSelected : Int = -1
         set(value){
 
-            if(previousSelected == value)
+            if(currentSelected == value)
                 return
 
             previousSelected = if(field == -1) value else field
