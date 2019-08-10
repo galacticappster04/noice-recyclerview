@@ -121,5 +121,12 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int = content[position].type
 
-    override fun getItemId(position: Int): Long = content[position].getId(position)
+    override fun getItemId(position: Int): Long = content[position].getItemId()
+
+    companion object{
+
+        private var idGenerator : Long = 0
+
+        fun getItemId() : Long = idGenerator++
+    }
 }
