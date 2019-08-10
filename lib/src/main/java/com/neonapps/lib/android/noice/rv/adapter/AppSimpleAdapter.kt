@@ -15,10 +15,6 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var multiSelectionEnabled : Boolean = false
         set(value){
             field = value
-
-            if(!field)
-                _content.clear()
-
             notifyDataSetChanged()
         }
 
