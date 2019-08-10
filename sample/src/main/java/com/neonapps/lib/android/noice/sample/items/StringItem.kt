@@ -27,8 +27,6 @@ class StringItem(val item : StringEntity) : AppSimpleAdapterItem<SampleItemVisit
     override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
     }
 
-    override fun getId(position: Int): Long = position.toLong()
-
     override fun createPrototype(): TypedHolder.Prototype = Prototype()
 
     inner class Prototype : TypedHolder.Prototype {

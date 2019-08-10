@@ -28,8 +28,6 @@ class IntItem(val item : IntEntity) : AppSimpleAdapterItem<SampleItemVisitor> {
         }
     }
 
-    override fun getId(position: Int): Long = position.toLong()
-
     override fun createPrototype(): TypedHolder.Prototype = Prototype()
 
     inner class Prototype : TypedHolder.Prototype {

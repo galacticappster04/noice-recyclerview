@@ -25,6 +25,8 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
             holder.binding.value = item.value.toString()
             holder.binding.executePendingBindings()
 
+            holder.binding.checkboxSelected.isChecked = isSelected
+
             if(!adapter.multiSelectionEnabled) {
                 isSelected = false
                 holder.binding.checkboxSelected.isChecked = false
@@ -63,8 +65,6 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
     override fun onBound(visitor: SampleItemVisitor, holder: RecyclerView.ViewHolder, item: AppSimpleAdapterItem<SampleItemVisitor>, position: Int, eventName: String) {
 
     }
-
-    override fun getId(position: Int): Long = position.toLong()
 
     override fun createPrototype() : TypedHolder.Prototype  = Prototype()
 

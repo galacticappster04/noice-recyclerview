@@ -27,8 +27,6 @@ class FloatItem(val item : FloatEntity) : AppSimpleAdapterItem<SampleItemVisitor
     override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
     }
 
-    override fun getId(position: Int): Long = position.toLong()
-
     override fun createPrototype(): TypedHolder.Prototype = Prototype()
 
     inner class Prototype : TypedHolder.Prototype {
