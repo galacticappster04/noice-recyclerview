@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
-import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
+import com.neonapps.lib.android.noice.rv.adapter.item.AdapterItem
 
 class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val prototypes : HashMap<Int, TypedHolder.Prototype> = hashMapOf()
 
-    private var _content : MutableList<AppSimpleAdapterItem<V>> = mutableListOf()
+    private var _content : MutableList<AdapterItem<V>> = mutableListOf()
 
     var multiSelectionEnabled : Boolean = false
         set(value){
@@ -21,12 +21,12 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var notifyCurrentSelectedOnChange : Boolean = false
     var visitor : V? = null
 
-    val content : List<AppSimpleAdapterItem<V>>
+    val content : List<AdapterItem<V>>
         get() = _content
 
-    val selectedItems : Map<Int, AppSimpleAdapterItem<V>>
+    val selectedItems : Map<Int, AdapterItem<V>>
         get() {
-            val items : MutableMap<Int, AppSimpleAdapterItem<V>> = mutableMapOf()
+            val items : MutableMap<Int, AdapterItem<V>> = mutableMapOf()
 
             content.withIndex().forEach{
                 if(it.value.isSelected)
@@ -70,18 +70,18 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         content[position].bind(this, holder, position)
     }
 
-    fun dispatchTouchEvent(item : AppSimpleAdapterItem<V>, position : Int, eventName : String) {
+    fun dispatchTouchEvent(item : AdapterItem<V>, position : Int, eventName : String) {
         if(visitor != null) {
             item.click(visitor!!, position, eventName)
         }
     }
 
-    fun dispatchBindEvent(item : AppSimpleAdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName: String) {
+    fun dispatchBindEvent(item : AdapterItem<V>, viewHolder : RecyclerView.ViewHolder, position : Int, eventName: String) {
         if(visitor != null)
             item.onBound(visitor!!, viewHolder, item, position, eventName)
     }
 
-    fun setContent(items : MutableList<AppSimpleAdapterItem<V>>) {
+    fun setContent(items : MutableList<AdapterItem<V>>) {
 
         for(item in items){
             if(!prototypes.containsKey(item.type))
@@ -92,7 +92,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun addItem(position: Int = this@AppSimpleAdapter.content.size - 1, item: AppSimpleAdapterItem<V>) {
+    fun addItem(position: Int = this@AppSimpleAdapter.content.size - 1, item: AdapterItem<V>) {
         if(!prototypes.containsKey(item.type))
             prototypes[item.type] = item.createPrototype()
 
