@@ -101,12 +101,11 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun removeItem(vararg position : Int) {
-
         val selectedPositions = position.filter { it > 0 || it < content.size }
+        val selectedItems = _content.withIndex().filter { it.index in selectedPositions }.map { it.value }
 
-        // _content.removeAt(position)
-        selectedPositions.forEach {
-            _content.removeAt(it)
+        selectedItems.forEach {
+            _content.remove(it)
         }
 
         selectedPositions.forEach {
