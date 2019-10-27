@@ -8,4 +8,6 @@ interface ItemBindable<V> {
     fun bind(adapter : AppSimpleAdapter<V>, holder : RecyclerView.ViewHolder, position : Int){}
 
     fun onBound(visitor : V, holder : RecyclerView.ViewHolder, position : Int, eventName : String = "") {}
+
+    fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {}
 }
