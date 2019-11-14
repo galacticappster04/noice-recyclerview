@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.neonapps.lib.android.noice.rv.adapter.AppSimpleAdapter
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
-import com.neonapps.lib.android.noice.rv.adapter.item.AdapterItem
 import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 import com.neonapps.lib.android.noice.sample.R
 import com.neonapps.lib.android.noice.sample.constants.ID
@@ -40,7 +38,7 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
                 isSelected = adapter?.multiSelectionEnabled ?: true
                 holder.binding.checkboxSelected.isChecked = isSelected
 
-                adapter?.dispatchTouchEvent(this, position, "")
+                adapter?.dispatchEvent(this, position, "")
                 false
             }
 
@@ -52,7 +50,7 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
                 }
 
                 adapter?.currentSelected = position
-                adapter?.dispatchTouchEvent(this, position, "")
+                adapter?.dispatchEvent(this, position, "")
             }
 
             holder.binding.relativelayoutItem.setBackgroundColor(
