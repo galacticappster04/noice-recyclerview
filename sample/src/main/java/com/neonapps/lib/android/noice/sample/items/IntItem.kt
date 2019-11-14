@@ -23,7 +23,7 @@ class IntItem(val item : IntEntity) : AppSimpleAdapterItem<SampleItemVisitor>() 
 
     }
 
-    override fun bind(adapter: AppSimpleAdapter<SampleItemVisitor>, holder: RecyclerView.ViewHolder, position: Int) {
+    override fun bind(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is IntViewHolder){
             holder.binding.value = item.value.toString()
         }

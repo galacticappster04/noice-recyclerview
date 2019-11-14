@@ -19,7 +19,7 @@ class StringItem(val item : StringEntity) : AppSimpleAdapterItem<SampleItemVisit
     override val type: Int = ID.String
     override var isSelected: Boolean = false
 
-    override fun bind(adapter: AppSimpleAdapter<SampleItemVisitor>, holder: RecyclerView.ViewHolder, position: Int) {
+    override fun bind(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is StringViewHolder){
             holder.binding.value = item.value
         }

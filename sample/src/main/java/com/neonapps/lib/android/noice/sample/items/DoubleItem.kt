@@ -22,7 +22,7 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
     override val type: Int = ID.DOUBLE
     override var isSelected: Boolean = false
 
-    override fun bind(adapter: AppSimpleAdapter<SampleItemVisitor>, holder: RecyclerView.ViewHolder, position: Int) {
+    override fun bind(holder: RecyclerView.ViewHolder, position: Int) {
 
         if(holder is DoubleViewHolder){
             holder.binding.value = item.value.toString()
@@ -30,44 +30,44 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
 
             holder.binding.checkboxSelected.isChecked = isSelected
 
-            if(!adapter.multiSelectionEnabled) {
+            if(adapter?.multiSelectionEnabled ?: false) {
                 isSelected = false
                 holder.binding.checkboxSelected.isChecked = false
             }
 
             holder.binding.relativelayoutItem.setOnLongClickListener {
-                adapter.multiSelectionEnabled = !adapter.multiSelectionEnabled
-                isSelected = adapter.multiSelectionEnabled
+                adapter?.multiSelectionEnabled = adapter?.multiSelectionEnabled ?: false
+                isSelected = adapter?.multiSelectionEnabled ?: true
                 holder.binding.checkboxSelected.isChecked = isSelected
 
-                adapter.dispatchTouchEvent(this, position, "")
+                adapter?.dispatchTouchEvent(this, position, "")
                 false
             }
 
             holder.binding.relativelayoutItem.setOnClickListener{
 
-                if(adapter.multiSelectionEnabled) {
+                if(adapter?.multiSelectionEnabled ?: true) {
                     isSelected = !isSelected
                     holder.binding.checkboxSelected.isChecked = isSelected
                 }
 
-                adapter.currentSelected = position
-                adapter.dispatchTouchEvent(this, position, "")
+                adapter?.currentSelected = position
+                adapter?.dispatchTouchEvent(this, position, "")
             }
 
             holder.binding.relativelayoutItem.setBackgroundColor(
-                if(adapter.currentSelected == position)
+                if(adapter?.currentSelected == position)
                     Color.parseColor("#333eee")
                 else
                     Color.parseColor("#A78686"))
 
-            holder.binding.checkboxSelected.visibility = if(adapter.multiSelectionEnabled)
+            holder.binding.checkboxSelected.visibility = if(adapter?.multiSelectionEnabled ?: false)
                 View.VISIBLE
             else
                 View.GONE
         }
 
-        adapter.dispatchBindEvent(this, holder, position, "")
+        adapter?.dispatchBindEvent(this, holder, position, "")
     }
 
     override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {

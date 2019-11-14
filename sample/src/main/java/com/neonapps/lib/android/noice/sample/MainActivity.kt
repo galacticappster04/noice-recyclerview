@@ -82,4 +82,14 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
     override fun onBind(position: Int, eventName: String) {
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        adapter.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter.onStop()
+    }
 }
