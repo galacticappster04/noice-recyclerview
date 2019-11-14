@@ -72,7 +72,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         content.getOrNull(holder.adapterPosition)?.onViewDetachedFromWindow(holder)
     }
 
-    fun dispatchTouchEvent(item : AdapterItem<V>, position : Int, eventName : String) {
+    fun dispatchEvent(item : AdapterItem<V>, position : Int, eventName : String) {
         if(visitor != null) {
             item.click(visitor!!, position, eventName)
         }
