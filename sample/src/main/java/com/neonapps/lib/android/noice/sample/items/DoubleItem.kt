@@ -68,7 +68,7 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
         adapter?.dispatchBindEvent(this, holder, position, "")
     }
 
-    override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
+    override fun onEvent(visitor: SampleItemVisitor, position: Int, eventName: String) {
 
     }
 
