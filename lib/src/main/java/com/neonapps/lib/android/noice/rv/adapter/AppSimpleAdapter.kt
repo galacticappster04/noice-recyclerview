@@ -74,7 +74,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun dispatchEvent(item : AdapterItem<V>, position : Int, eventName : String) {
         if(visitor != null) {
-            item.click(visitor!!, position, eventName)
+            item.onEvent(visitor!!, position, eventName)
         }
     }
 
