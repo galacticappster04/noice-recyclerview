@@ -64,7 +64,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        content[position].bind(this, holder, position)
+        content[position].bind(holder, position)
     }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
@@ -88,6 +88,8 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         for(item in items){
             if(!prototypes.containsKey(item.type))
                 prototypes[item.type] = item.createPrototype()
+
+            item.adapter = this
         }
 
         this._content = items
@@ -98,6 +100,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if(!prototypes.containsKey(item.type))
             prototypes[item.type] = item.createPrototype()
 
+        item.adapter = this
         _content.add(position, item)
         notifyItemInserted(position)
     }
@@ -107,6 +110,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val selectedItems = _content.withIndex().filter { it.index in selectedPositions }.map { it.value }
 
         selectedItems.forEach {
+            it.adapter = null
             _content.remove(it)
         }
 
@@ -121,6 +125,18 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun removeAllPrototype(type : Int) {
         prototypes.clear()
+    }
+
+    fun onStart() {
+        for(item in _content) {
+            item.adapter = this
+        }
+    }
+
+    fun onStop() {
+        for(item in _content) {
+            item.adapter = null
+        }
     }
 
     override fun getItemCount(): Int = content.size
