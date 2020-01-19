@@ -6,7 +6,7 @@ abstract class AppSimpleAdapterItem<V> : AdapterItem<V> {
 
     protected val _itemId : Long = AppSimpleAdapter.getItemId()
 
-    override var adapter : AppSimpleAdapter<V>? = null
+    override lateinit var adapter : AppSimpleAdapter<V>
 
     override fun getItemId(): Long = _itemId
 }
