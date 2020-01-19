@@ -110,7 +110,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val selectedItems = _content.withIndex().filter { it.index in selectedPositions }.map { it.value }
 
         selectedItems.forEach {
-            it.adapter = null
+            // it.adapter = null
             _content.remove(it)
         }
 
@@ -134,9 +134,9 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun onStop() {
-        for(item in _content) {
-            item.adapter = null
-        }
+        // for(item in _content) {
+        //    item.adapter = null
+        // }
     }
 
     override fun getItemCount(): Int = content.size
