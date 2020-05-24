@@ -45,6 +45,9 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    // Android Android Kotlin Core
+    implementation rootProject.ext.ktxcore
+
     // Everything Android
     implementation rootProject.ext.material
     implementation rootProject.ext.cardview
@@ -54,8 +57,7 @@ dependencies {
     implementation rootProject.ext.recyclerview
 
     // Unit Testing
-    testImplementation rootProject.ext.junit
-    androidTestImplementation rootProject.ext.androidx_junit
+    androidTestImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.espressoCore
 
     implementation project(':lib')

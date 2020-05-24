@@ -41,6 +41,9 @@ dependencies {
     // Kotlin
     implementation rootProject.ext.kotlin
 
+    // Android Android Kotlin Core
+    implementation rootProject.ext.ktxcore
+
     // Unit Testing and Instrumentation
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.test_runner
