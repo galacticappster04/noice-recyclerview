@@ -28,44 +28,44 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
 
             holder.binding.checkboxSelected.isChecked = isSelected
 
-            if(adapter?.multiSelectionEnabled ?: false) {
+            if(adapter.multiSelectionEnabled ?: false) {
                 isSelected = false
                 holder.binding.checkboxSelected.isChecked = false
             }
 
             holder.binding.relativelayoutItem.setOnLongClickListener {
-                adapter?.multiSelectionEnabled = adapter?.multiSelectionEnabled ?: false
-                isSelected = adapter?.multiSelectionEnabled ?: true
+                adapter.multiSelectionEnabled = adapter.multiSelectionEnabled ?: false
+                isSelected = adapter.multiSelectionEnabled ?: true
                 holder.binding.checkboxSelected.isChecked = isSelected
 
-                adapter?.dispatchEvent(this, position, "")
+                adapter.dispatchEvent(this, position, "")
                 false
             }
 
             holder.binding.relativelayoutItem.setOnClickListener{
 
-                if(adapter?.multiSelectionEnabled ?: true) {
+                if(adapter.multiSelectionEnabled ?: true) {
                     isSelected = !isSelected
                     holder.binding.checkboxSelected.isChecked = isSelected
                 }
 
-                adapter?.currentSelected = position
-                adapter?.dispatchEvent(this, position, "")
+                adapter.currentSelected = position
+                adapter.dispatchEvent(this, position, "")
             }
 
             holder.binding.relativelayoutItem.setBackgroundColor(
-                if(adapter?.currentSelected == position)
+                if(adapter.currentSelected == position)
                     Color.parseColor("#333eee")
                 else
                     Color.parseColor("#A78686"))
 
-            holder.binding.checkboxSelected.visibility = if(adapter?.multiSelectionEnabled ?: false)
+            holder.binding.checkboxSelected.visibility = if(adapter.multiSelectionEnabled ?: false)
                 View.VISIBLE
             else
                 View.GONE
         }
 
-        adapter?.dispatchBindEvent(this, holder, position, "")
+        adapter.dispatchBindEvent(this, holder, position, "")
     }
 
     override fun onEvent(visitor: SampleItemVisitor, position: Int, eventName: String) {
@@ -74,7 +74,7 @@ class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisit
 
     override fun onBound(visitor: SampleItemVisitor, holder: RecyclerView.ViewHolder, position: Int, eventName: String) {
         visitor.onBind(position, "")
-        Log.d("DoubleItem", "View at: ${position} bound!")
+        // Log.d("DoubleItem", "View at: ${position} bound!")
     }
 
     override fun createPrototype() : TypedHolder.Prototype  = Prototype()

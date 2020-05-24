@@ -20,12 +20,15 @@ class FloatItem(val item : FloatEntity) : AppSimpleAdapterItem<SampleItemVisitor
     override var isSelected: Boolean = false
 
     override fun bind(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is FloatViewHolder){
-            holder.binding.value = item.value.toString()
-        }
+
+        if(holder !is FloatViewHolder)
+            return
+
+        holder.binding.value = item.value.toString()
     }
 
-    override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
+    override fun onEvent(visitor: SampleItemVisitor, position: Int, eventName: String) {
+        super.onEvent(visitor, position, eventName)
     }
 
     override fun createPrototype(): TypedHolder.Prototype = Prototype()

@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.neonapps.lib.android.noice.rv.adapter.AppSimpleAdapter
 import com.neonapps.lib.android.noice.rv.adapter.item.AdapterItem
 import com.neonapps.lib.android.noice.sample.entities.DoubleEntity
+import com.neonapps.lib.android.noice.sample.entities.StringEntity
 import com.neonapps.lib.android.noice.sample.items.DoubleItem
+import com.neonapps.lib.android.noice.sample.items.StringItem
 import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -75,8 +77,15 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
 
         adapter.visitor = this
         adapter.notifyCurrentSelectedOnChange = true
-        adapter.setContent(items)
-        adapter.setHasStableIds(true)
+        adapter.addContent(*items.toTypedArray())
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 1")))
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 2")))
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 3")))
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 4")))
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 5")))
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 6")))
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 7")))
+        adapter.addContent(StringItem(StringEntity("This is a sample entity 8")))
     }
 
     override fun onBind(position: Int, eventName: String) {

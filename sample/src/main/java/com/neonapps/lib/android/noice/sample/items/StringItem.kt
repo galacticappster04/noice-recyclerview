@@ -20,12 +20,15 @@ class StringItem(val item : StringEntity) : AppSimpleAdapterItem<SampleItemVisit
     override var isSelected: Boolean = false
 
     override fun bind(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is StringViewHolder){
-            holder.binding.value = item.value
-        }
+
+        if(holder !is StringViewHolder)
+            return
+
+        holder.binding.value = item.value
     }
 
-    override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
+    override fun onEvent(visitor: SampleItemVisitor, position: Int, eventName: String) {
+        super.onEvent(visitor, position, eventName)
     }
 
     override fun createPrototype(): TypedHolder.Prototype = Prototype()

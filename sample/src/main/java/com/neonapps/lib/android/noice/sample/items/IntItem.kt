@@ -19,14 +19,16 @@ class IntItem(val item : IntEntity) : AppSimpleAdapterItem<SampleItemVisitor>() 
     override val type: Int = ID.INT
     override var isSelected: Boolean = false
 
-    override fun click(visitor: SampleItemVisitor, position: Int, eventName: String) {
-
+    override fun onEvent(visitor: SampleItemVisitor, position: Int, eventName: String) {
+        super.onEvent(visitor, position, eventName)
     }
 
     override fun bind(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is IntViewHolder){
-            holder.binding.value = item.value.toString()
-        }
+
+        if(holder !is IntViewHolder)
+            return
+
+        holder.binding.value = item.value.toString()
     }
 
     override fun createPrototype(): TypedHolder.Prototype = Prototype()
