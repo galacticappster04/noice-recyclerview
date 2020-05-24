@@ -10,7 +10,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val prototypes : HashMap<Int, TypedHolder.Prototype> = hashMapOf()
 
-    private var _content : MutableList<out AdapterItem<V>> = mutableListOf()
+    private var _content : MutableList<AdapterItem<V>> = mutableListOf()
 
     var multiSelectionEnabled : Boolean = false
         set(value){
@@ -84,7 +84,7 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     // TODO Use DiffUtils here
-    fun setContent(items : MutableList<out AdapterItem<V>>) {
+    fun setContent(items : MutableList<AdapterItem<V>>) {
 
         for(item in items){
             if(!prototypes.containsKey(item.type))
@@ -93,8 +93,34 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             item.adapter = this
         }
 
+        this._content.clear()
+        this._content.addAll(items)
         this._content = items
         notifyDataSetChanged()
+    }
+
+    fun addContent(vararg item : AdapterItem<V>) {
+        for(i in item) {
+            if(!prototypes.containsKey(i.type))
+                prototypes[i.type] = i.createPrototype()
+
+            i.adapter = this
+        }
+
+        this._content.addAll(item)
+        notifyItemRangeInserted(this._content.size - 1, item.size)
+    }
+
+    fun addContent(index : Int, vararg item : AdapterItem<V>) {
+        for(i in item) {
+            if(!prototypes.containsKey(i.type))
+                prototypes[i.type] = i.createPrototype()
+
+            i.adapter = this
+        }
+
+        this._content.addAll(index, item.toList())
+        notifyItemRangeInserted(index, item.size)
     }
 
     // TODO Prefer DiffUtils instead
