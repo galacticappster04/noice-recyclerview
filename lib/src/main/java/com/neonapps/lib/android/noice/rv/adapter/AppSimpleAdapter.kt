@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
 import com.neonapps.lib.android.noice.rv.adapter.item.AdapterItem
-import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 
 class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val prototypes : HashMap<Int, TypedHolder.Prototype> = hashMapOf()
 
-    private var _content : MutableList<AdapterItem<V>> = mutableListOf()
+    private val _content : MutableList<AdapterItem<V>> = mutableListOf()
 
     var multiSelectionEnabled : Boolean = false
         set(value){
@@ -96,7 +95,6 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         this._content.clear()
         this._content.addAll(items)
-        this._content = items
         notifyDataSetChanged()
     }
 
@@ -167,6 +165,11 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun removeAllPrototype(type : Int) {
+        prototypes.clear()
+    }
+
+    fun clear() {
+        _content.clear()
         prototypes.clear()
     }
 
