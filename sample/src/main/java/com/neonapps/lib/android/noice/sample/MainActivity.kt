@@ -86,6 +86,9 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
         adapter.addContent(StringItem(StringEntity("This is a sample entity 6")))
         adapter.addContent(StringItem(StringEntity("This is a sample entity 7")))
         adapter.addContent(StringItem(StringEntity("This is a sample entity 8")))
+
+        val item = adapter.getItem(adapter.size - 1)
+        item?.update(payload = "This new a message, and replaced")
     }
 
     override fun onBind(position: Int, eventName: String) {

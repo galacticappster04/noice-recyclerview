@@ -31,6 +31,13 @@ class StringItem(val item : StringEntity) : AppSimpleAdapterItem<SampleItemVisit
         super.onEvent(visitor, position, eventName)
     }
 
+    override fun update(payload: Any) {
+        if(payload is String) {
+            item.value = payload
+        }
+        
+    }
+
     override fun createPrototype(): TypedHolder.Prototype = Prototype()
 
     inner class Prototype : TypedHolder.Prototype {
