@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
 import com.neonapps.lib.android.noice.rv.adapter.item.AdapterItem
+import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 
 class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -122,6 +123,20 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         this._content.addAll(index, item.toList())
         notifyItemRangeInserted(index, item.size)
     }
+
+    fun update(index : Int, payload : Any) {
+        if(index < 0 || index >= _content.size)
+            return
+
+        val item = _content[index]
+        item.update(payload)
+        notifyItemChanged(index)
+    }
+
+    fun getItem(index : Int) : AdapterItem<V>? = _content.getOrNull(index)
+
+    val size : Int
+        get() = _content.size
 
     // TODO Prefer DiffUtils instead
 //    fun addItem(position: Int = this@AppSimpleAdapter.content.size - 1, item: AdapterItem<V>) {
