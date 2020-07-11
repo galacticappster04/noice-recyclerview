@@ -84,7 +84,9 @@ class AppSimpleAdapter<V> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     // TODO Use DiffUtils here
-    fun setContent(items : MutableList<out AdapterItem<V>>) {
+    fun setContent(items : List<AdapterItem<V>>) {
+
+        prototypes.clear()
 
         for(item in items){
             if(!prototypes.containsKey(item.type))
