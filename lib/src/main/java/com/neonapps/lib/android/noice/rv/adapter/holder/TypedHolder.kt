@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class TypedHolder(val view : View, val type : Int = -1) : RecyclerView.ViewHolder(view) {
-    interface Prototype {
+abstract class TypedHolder(val view : View) : RecyclerView.ViewHolder(view) {
+    interface Provider {
         fun create(inflater : LayoutInflater, group : ViewGroup, attachToParent : Boolean) : TypedHolder
     }
 }
