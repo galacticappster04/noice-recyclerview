@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 // TODO Create sample for this project
 class MainActivity : AppCompatActivity(), SampleItemVisitor {
 
-    private val adapter : ReusableAdapter<SampleItemVisitor> = ReusableAdapter()
+    private val adapter : ReusableAdapter = ReusableAdapter()
 
     private val disposable : CompositeDisposable = CompositeDisposable()
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
 
         disposable.add(Observable.intervalRange(0, 100, 0, 1, TimeUnit.SECONDS)
             .map {
-                StringItem(StringEntity("This is $it"))
+                StringItem(StringEntity("This is $it"), listener)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -109,6 +109,12 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
 //        item?.update(payload = "This new a message, and replaced")
     }
 
+    private val listener = object : StringItem.Listener {
+        override fun onClick(item: StringEntity, position: Int) {
+
+        }
+    }
+
     override fun onBind(position: Int, eventName: String) {
 
     }
@@ -119,12 +125,10 @@ class MainActivity : AppCompatActivity(), SampleItemVisitor {
 
     override fun onStart() {
         super.onStart()
-        adapter.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        adapter.onStop()
         disposable.dispose()
     }
 }
