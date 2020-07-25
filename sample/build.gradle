@@ -56,6 +56,10 @@ dependencies {
     implementation rootProject.ext.ktxcore
     implementation rootProject.ext.recyclerview
 
+    // Android
+    implementation rootProject.ext.rxandroid
+    implementation rootProject.ext.rxjava
+
     // Unit Testing
     androidTestImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.espressoCore

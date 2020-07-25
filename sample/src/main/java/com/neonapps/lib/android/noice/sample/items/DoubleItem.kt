@@ -1,7 +1,6 @@
 package com.neonapps.lib.android.noice.sample.items
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.neonapps.lib.android.noice.rv.adapter.holder.TypedHolder
 import com.neonapps.lib.android.noice.rv.adapter.item.AppSimpleAdapterItem
 import com.neonapps.lib.android.noice.sample.R
-import com.neonapps.lib.android.noice.sample.constants.ID
+import com.neonapps.lib.android.noice.sample.constants.TYPE
 import com.neonapps.lib.android.noice.sample.databinding.ListitemDoubleBinding
 import com.neonapps.lib.android.noice.sample.entities.DoubleEntity
 import com.neonapps.lib.android.noice.sample.vh.DoubleViewHolder
@@ -17,69 +16,57 @@ import com.neonapps.lib.android.noice.sample.visitor.SampleItemVisitor
 
 class DoubleItem(val item : DoubleEntity) : AppSimpleAdapterItem<SampleItemVisitor>() {
 
-    override val type: Int = ID.DOUBLE
+    override val type: Int = TYPE.DOUBLE
     override var isSelected: Boolean = false
 
-    override fun bind(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun bind(holder: RecyclerView.ViewHolder, visitor : SampleItemVisitor?, position: Int) {
 
-        if(holder is DoubleViewHolder){
-            holder.binding.value = item.value.toString()
-            holder.binding.executePendingBindings()
+        if(holder !is DoubleViewHolder)
+            return
 
-            holder.binding.checkboxSelected.isChecked = isSelected
+        holder.binding.value = item.value.toString()
+        holder.binding.executePendingBindings()
 
-            if(adapter.multiSelectionEnabled ?: false) {
-                isSelected = false
-                holder.binding.checkboxSelected.isChecked = false
-            }
+        holder.binding.checkboxSelected.isChecked = isSelected
 
-            holder.binding.relativelayoutItem.setOnLongClickListener {
-                adapter.multiSelectionEnabled = adapter.multiSelectionEnabled ?: false
-                isSelected = adapter.multiSelectionEnabled ?: true
-                holder.binding.checkboxSelected.isChecked = isSelected
-
-                adapter.dispatchEvent(this, position, "")
-                false
-            }
-
-            holder.binding.relativelayoutItem.setOnClickListener{
-
-                if(adapter.multiSelectionEnabled ?: true) {
-                    isSelected = !isSelected
-                    holder.binding.checkboxSelected.isChecked = isSelected
-                }
-
-                adapter.currentSelected = position
-                adapter.dispatchEvent(this, position, "")
-            }
-
-            holder.binding.relativelayoutItem.setBackgroundColor(
-                if(adapter.currentSelected == position)
-                    Color.parseColor("#333eee")
-                else
-                    Color.parseColor("#A78686"))
-
-            holder.binding.checkboxSelected.visibility = if(adapter.multiSelectionEnabled ?: false)
-                View.VISIBLE
-            else
-                View.GONE
+        if(adapter.multiSelectionEnabled ?: false) {
+            isSelected = false
+            holder.binding.checkboxSelected.isChecked = false
         }
 
-        adapter.dispatchBindEvent(this, holder, position, "")
+        holder.binding.relativelayoutItem.setOnLongClickListener {
+            adapter.multiSelectionEnabled = adapter.multiSelectionEnabled ?: false
+            isSelected = adapter.multiSelectionEnabled ?: true
+            holder.binding.checkboxSelected.isChecked = isSelected
+
+            visitor?.onClick(this, position)
+            false
+        }
+
+        holder.binding.relativelayoutItem.setOnClickListener{
+
+            if(adapter.multiSelectionEnabled ?: true) {
+                isSelected = !isSelected
+                holder.binding.checkboxSelected.isChecked = isSelected
+            }
+
+            adapter.currentSelected = position
+            visitor?.onClick(this, position)
+        }
+
+        holder.binding.relativelayoutItem.setBackgroundColor(
+            if(adapter.currentSelected == position)
+                Color.parseColor("#333eee")
+            else
+                Color.parseColor("#A78686"))
+
+        holder.binding.checkboxSelected.visibility = if(adapter.multiSelectionEnabled ?: false)
+            View.VISIBLE
+        else
+            View.GONE
     }
 
-    override fun onEvent(visitor: SampleItemVisitor, position: Int, eventName: String) {
-
-    }
-
-    override fun onBound(visitor: SampleItemVisitor, holder: RecyclerView.ViewHolder, position: Int, eventName: String) {
-        visitor.onBind(position, "")
-        // Log.d("DoubleItem", "View at: ${position} bound!")
-    }
-
-    override fun createPrototype() : TypedHolder.Prototype  = Prototype()
-
-    inner class Prototype : TypedHolder.Prototype {
+    override fun create() : TypedHolder.Provider  = object : TypedHolder.Provider {
         override fun create(inflater: LayoutInflater, group: ViewGroup, attachToParent: Boolean): TypedHolder
             = DoubleViewHolder(ListitemDoubleBinding.bind(inflater.inflate(R.layout.listitem_double, group, attachToParent)))
     }
