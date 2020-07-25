@@ -1,5 +1,5 @@
 package com.neonapps.lib.android.noice.rv.adapter.events
 
-interface MultiSelectable<V> {
+interface MultiSelectable {
     var isSelected : Boolean
 }
