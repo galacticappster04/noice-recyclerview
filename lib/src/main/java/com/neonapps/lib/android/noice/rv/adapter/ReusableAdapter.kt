@@ -137,7 +137,8 @@ class ReusableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun getItem(index : Int) : AdapterItem? = _content.getOrNull(index)
 
-    val size : Int = _content.size
+    val size : Int
+        get() = _content.size
 
     // TODO Prefer DiffUtils instead
 //    fun addItem(position: Int = this@AppSimpleAdapter.content.size - 1, item: AdapterItem<V>) {
