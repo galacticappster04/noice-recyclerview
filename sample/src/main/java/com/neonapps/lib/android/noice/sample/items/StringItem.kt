@@ -31,10 +31,13 @@ class StringItem(val item : StringEntity, val listener : Listener? = null) : App
         }
     }
 
-    override fun update(payload: Any) {
+    override fun update(payload: Any) : Boolean {
         if(payload is String) {
             item.value = payload
+            return true
         }
+
+        return false
     }
 
     override fun createProvider(): TypedHolder.Provider = object : TypedHolder.Provider {

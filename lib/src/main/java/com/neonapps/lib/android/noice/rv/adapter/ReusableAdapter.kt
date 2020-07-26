@@ -117,8 +117,8 @@ class ReusableAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             return
 
         val item = _content[index]
-        item.update(payload)
-        notifyItemChanged(index)
+        if(item.update(payload))
+            notifyItemChanged(index)
     }
 
     fun getItem(index : Int) : AdapterItem? = _content.getOrNull(index)
